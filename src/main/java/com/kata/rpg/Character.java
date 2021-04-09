@@ -1,13 +1,17 @@
 package com.kata.rpg;
 
 public class Character {
-    private int currentHealt = 1000;
+    private int currentHealth = 1000;
 
     public void receiveDamage(int damage) {
-        currentHealt -= damage;
+        if(damage > currentHealth){
+            currentHealth = 0;
+        } else {
+            currentHealth -= damage;
+        }
     }
 
     public int currentHealth() {
-        return currentHealt;
+        return currentHealth;
     }
 }

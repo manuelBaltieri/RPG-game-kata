@@ -13,4 +13,13 @@ public class CharacterTest {
         assertThat(character.currentHealth()).isEqualTo(999);
     }
 
+    @Test
+    void whenDamageReceivedExceedsCurrentHealthHealthBecomes0AndTheCharacterDies() {
+        Character character = new Character();
+        character.receiveDamage(600);
+        character.receiveDamage(600);
+
+        assertThat(character.currentHealth()).isEqualTo(0);
+    }
+
 }
