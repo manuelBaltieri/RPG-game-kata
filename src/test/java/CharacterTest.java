@@ -6,6 +6,11 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class CharacterTest {
 
     @Test
+    void initialHealthIs1000() {
+        assertThat(new Character().currentHealth()).isEqualTo(1000);
+    }
+
+    @Test
     void characterCanReceiveDamage() {
         Character character = new Character();
         character.receiveDamage(1);
@@ -14,12 +19,19 @@ public class CharacterTest {
     }
 
     @Test
-    void whenDamageReceivedExceedsCurrentHealthHealthBecomes0AndTheCharacterDies() {
+    void notNegativeHealth() {
         Character character = new Character();
-        character.receiveDamage(600);
-        character.receiveDamage(600);
+        character.receiveDamage(1001);
 
         assertThat(character.currentHealth()).isEqualTo(0);
     }
+
+    @Test
+    void health0MeansDead() {
+        Character character = new Character();
+        character.receiveDamage(1000);
+        assertThat(character.isDead()).isTrue();
+    }
+
 
 }
