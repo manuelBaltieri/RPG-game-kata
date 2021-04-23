@@ -1,5 +1,7 @@
 package com.kata.rpg;
 
+import static java.lang.Math.min;
+
 public
 class Character {
 	public static final int INITIAL_HEALTH = 1000;
@@ -25,7 +27,14 @@ class Character {
 	}
 
 	public
+	boolean isAlive() {
+		return !isDead();
+	}
+
+	public
 	void receiveHealing(int heal) {
-		currentHealth += heal;
+		if (isAlive()) {
+			currentHealth = min(INITIAL_HEALTH, currentHealth + heal);
+		}
 	}
 }
