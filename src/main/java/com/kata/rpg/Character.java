@@ -37,4 +37,14 @@ class Character {
 			currentHealth = min(INITIAL_HEALTH, currentHealth + heal);
 		}
 	}
+
+	public
+	void inflictDamage(Character defender, int damage)
+	throws
+			CharacterCannotAttackHimselfException {
+		if (this == defender) {
+			throw new CharacterCannotAttackHimselfException();
+		}
+		defender.receiveDamage(damage);
+	}
 }

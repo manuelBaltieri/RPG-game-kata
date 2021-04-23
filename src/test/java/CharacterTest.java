@@ -1,7 +1,9 @@
 import com.kata.rpg.Character;
+import com.kata.rpg.CharacterCannotAttackHimselfException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public
 class CharacterTest {
@@ -65,11 +67,26 @@ class CharacterTest {
 		assertThat(character.currentHealth()).isEqualTo(Character.INITIAL_HEALTH);
 	}
 
-    /*@Test
-    void notNegativeHealth() {
-        Character character = new Character();
-        character.receiveDamage(Character.INITIAL_HEALTH + 1);
+	@Test
+	void characterAttacksAnotherCharacter()
+	throws
+			CharacterCannotAttackHimselfException {
+		int damage = 1;
 
-        assertThat(character.currentHealth()).isEqualTo(0);
-    }*/
+		Character attacker = new Character();
+		Character defender = new Character();
+
+		attacker.inflictDamage(defender, damage);
+
+		assertThat(defender.currentHealth()).isEqualTo(Character.INITIAL_HEALTH - damage);
+	}
+
+	@Test()
+	void characterCannotAttacksHimself() {
+		Character attacker = new Character();
+
+		assertThrows(CharacterCannotAttackHimselfException.class, () -> {
+			attacker.inflictDamage(attacker, 1);
+		});
+	}
 }
