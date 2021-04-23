@@ -23,4 +23,9 @@ class Character {
 	boolean isDead() {
 		return currentHealth <= 0;
 	}
+
+	public
+	void receiveHealing(int heal) {
+		currentHealth += heal;
+	}
 }
