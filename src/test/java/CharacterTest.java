@@ -7,21 +7,22 @@ public class CharacterTest {
 
     @Test
     void initialHealthIs1000() {
-        assertThat(new Character().currentHealth()).isEqualTo(1000);
+        assertThat(new Character().currentHealth()).isEqualTo(Character.INITIAL_HEALTH);
     }
 
     @Test
     void characterCanReceiveDamage() {
         Character character = new Character();
-        character.receiveDamage(1);
+        int damage = 1;
+        character.receiveDamage(damage);
 
-        assertThat(character.currentHealth()).isEqualTo(999);
+        assertThat(character.currentHealth()).isEqualTo(Character.INITIAL_HEALTH - damage);
     }
 
     @Test
     void notNegativeHealth() {
         Character character = new Character();
-        character.receiveDamage(1001);
+        character.receiveDamage(Character.INITIAL_HEALTH + 1);
 
         assertThat(character.currentHealth()).isEqualTo(0);
     }
@@ -29,7 +30,7 @@ public class CharacterTest {
     @Test
     void health0MeansDead() {
         Character character = new Character();
-        character.receiveDamage(1000);
+        character.receiveDamage(Character.INITIAL_HEALTH);
         assertThat(character.isDead()).isTrue();
     }
 
